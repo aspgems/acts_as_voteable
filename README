@@ -7,25 +7,13 @@ Allows user to vote on the on models.
 
 Install
  * Run the following command:
- script/plugin install http://juixe.com/svn/acts_as_voteable
+ script/plugin install git://github.com/aspgems/acts_as_voteable.git
  
- * Create a new rails migration and add the following self.up and self.down methods
- 
-  def self.up
-    create_table "votes", :force => true do |t|
-      t.column "vote", :boolean, :default => false
-      t.column "created_at", :datetime, :null => false
-      t.column "voteable_type", :string, :limit => 15, :default => "", :null => false
-      t.column "voteable_id", :integer, :default => 0, :null => false
-      t.column "user_id", :integer, :default => 0, :null => false
-    end
-  
-    add_index "votes", ["user_id"], :name => "fk_votes_user"
-  end
+ * Generate migration by running:
+ script/generate acts_as_voteable_migration
 
-  def self.down
-    drop_table :votes
-  end
+ * Upgrade database schema:
+ rake db:migrate
  
 == Usage
 
